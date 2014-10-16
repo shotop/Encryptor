@@ -1,5 +1,15 @@
 class Encryptor
-  def cipher(rotation)
+  def capture_text
+    puts "Enter the text you'd like to encrypt"
+    input = gets.chomp
+    output = encrypt(input)
+    puts "Your encrypted text is: #{output}"
+    puts "Would you like to decrypt?"
+    decision = gets.chomp
+    puts "Your decrypted text is: #{decrypt(output)}" if decision.downcase == "yes"
+  end
+
+  def cipher(rotation=4)
     characters = (' '..'z').to_a
     rotated_characters = characters.rotate(rotation)
     Hash[characters.zip(rotated_characters)]
@@ -10,7 +20,7 @@ class Encryptor
     cipher_for_rotation[letter]
   end
 
-  def encrypt(string, rotation)
+  def encrypt(string, rotation=4)
     letters = string.split("")
 
     results = letters.collect do |letter|
@@ -20,7 +30,7 @@ class Encryptor
     results.join
   end
 
-  def decrypt(string, rotation)
+  def decrypt(string, rotation=4)
     encrypt(string, -rotation)
   end
 
